@@ -1,0 +1,6 @@
+$P1X3L = New-Item -Path "~\Desktop\P1X3L" -ItemType "Directory" -Force
+cd $P1X3L
+
+function version-av {
+  Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct | Out-File -FilePath $P1X3L\Workstation_Security-RECON_Report.txt -Encoding utf8
+}
