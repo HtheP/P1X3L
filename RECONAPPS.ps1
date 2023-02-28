@@ -1,4 +1,6 @@
-$desktop = ([Environment]::GetFolderPath("Desktop"))
+$P1X = ([Environment]::GetFolderPath("Desktop"))
+$P1X3L = New-Item -Path "~\Desktop\P1X3L" -ItemType "Directory" -Force; $RECONAPPS = New-Item -Path "$P1X3L\RECON_APPS" -ItemType "Directory" -Force
+
 function Get-Nirsoft {
 
   cd $RECONAPPS
