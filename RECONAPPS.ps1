@@ -13,7 +13,3 @@ function Wifi {
   Set-Location -Path $RECONAPPS; netsh wlan export profile key=clear
   Select-String -Path *.xml -Pattern 'keyMaterial' | % { $_ -replace '</?keyMaterial>', ''} | % {$_ -replace "C:\\Users\\$env:UserName\\Desktop\\P1X3L\\RECON_APPS\\", ''} | % {$_ -replace '.xml:22:', ''} > $P1X3L\WiFi_Passwords-RECON_Report.txt
 }
-
-function version-av {
-  Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct | Out-File -FilePath $P1X3L\Workstation_Security-RECON_Report.txt -Encoding utf8
-}
